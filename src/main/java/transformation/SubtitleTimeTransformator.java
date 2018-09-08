@@ -11,7 +11,7 @@ public class SubtitleTimeTransformator implements LineTransformator {
 	}
 	
 	@Override
-	public String updateLine(String line) {
+	public String updateLine(final String line) {
 		if (line.length() != 24 && line.charAt(2) != ':' && line.charAt(5) != ':') //is it time line
 			return line;
 		

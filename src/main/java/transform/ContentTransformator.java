@@ -2,6 +2,7 @@ package transform;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,13 +12,24 @@ import text.plaintext.PlainTextLoader;
 
 public class ContentTransformator {
 	
+	private PlainTextLoader l = new PlainTextLoader();
+	private PlainTextCreator c = new PlainTextCreator();
+	
 	public ContentTransformator(
 			String originPath, String originCharset,
 			String resultPath, String resultCharset,
 			boolean deleteExistingResult,
 			boolean deleteOrigin,
 			List<LineTransformator> transformators) {
-		//TODO
+		if (deleteExistingResult)
+			deleteExistingFile(new File(resultPath));
+		try {
+			transform(l.buffer(originPath, originCharset), c.buffer(resultPath, resultCharset, true), transformators);
+			if (deleteOrigin)
+			deleteExistingFile(new File(originPath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public ContentTransformator(
@@ -26,14 +38,20 @@ public class ContentTransformator {
 			boolean deleteExistingResult,
 			boolean deleteOrigin,
 			List<LineTransformator> transformators) {
-		//TODO
+		if (deleteExistingResult)
+			deleteExistingFile(new File(resultPath));
+		try {
+			transform(l.buffer(originPath), c.buffer(resultPath, true), transformators);
+			if (deleteOrigin)
+			deleteExistingFile(new File(originPath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public ContentTransformator() {}
 
 	public void transform(BufferedReader br, BufferedWriter bw, List<LineTransformator> transformators) throws IOException {
-		PlainTextLoader l = new PlainTextLoader();
-		PlainTextCreator c = new PlainTextCreator();		
 		l.read(br, (a)->{
 			String res = a;
 			for (LineTransformator transformator : transformators) {
@@ -47,8 +65,9 @@ public class ContentTransformator {
 		});
 	}
 		
-	public void deleteExistingFileIfExist(String path) {
-		throw new UnsupportedOperationException("Not finished yet");
+	public void deleteExistingFile(File file) {
+		if(file.exists())
+			file.delete();
 	}	
 
 }

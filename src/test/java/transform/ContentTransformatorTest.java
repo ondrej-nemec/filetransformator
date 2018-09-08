@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,26 @@ public class ContentTransformatorTest {
 			verify(l, times(3)).updateLine(anyString());
 		}
 	}
+	
+	@Test
+	public void testDeleteExistingFileDeleteFile() {
+		File f = mock(File.class);
+		when(f.exists()).thenReturn(true);
+		new ContentTransformator().deleteExistingFile(f);
+		verify(f, times(1)).exists();
+		verify(f, times(1)).delete();
+		verifyNoMoreInteractions(f);
+	}
+	
+	@Test
+	public void testDeleteExistingFileDontDeleteNonExitingFile() {
+		File f = mock(File.class);
+		when(f.exists()).thenReturn(false);
+		new ContentTransformator().deleteExistingFile(f);
+		verify(f, times(1)).exists();
+		verifyNoMoreInteractions(f);
+	}
+	
 	
 	private List<LineTransformator> getMockedTransformators() {
 		LineTransformator t1 = mock(LineTransformator.class);

@@ -37,7 +37,7 @@ public class ContentTransformator {
 		l.read(br, (a)->{
 			String res = a;
 			for (LineTransformator transformator : transformators) {
-				res += transformator.updateLine(res);
+				res = transformator.updateLine(res);
 			}				
 			try {
 				c.write(bw, res);

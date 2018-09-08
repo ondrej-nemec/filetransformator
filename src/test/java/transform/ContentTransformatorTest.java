@@ -35,10 +35,11 @@ public class ContentTransformatorTest {
 	}
 	
 	private List<LineTransformator> getMockedTransformators() {
-		return Arrays.asList(
-				mock(LineTransformator.class),
-				mock(LineTransformator.class)
-			);
+		LineTransformator t1 = mock(LineTransformator.class);
+		when(t1.updateLine(anyString())).thenReturn("");
+		LineTransformator t2 = mock(LineTransformator.class);
+		when(t2.updateLine(anyString())).thenReturn("");
+		return Arrays.asList(t1, t2);
 	}
 	
 }

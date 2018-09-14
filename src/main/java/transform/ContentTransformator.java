@@ -17,14 +17,21 @@ public class ContentTransformator {
 	
 	public ContentTransformator(
 			String originPath, String originCharset,
+			boolean deleteOrigin,
 			String resultPath, String resultCharset,
 			boolean deleteExistingResult,
-			boolean deleteOrigin,
 			List<LineTransformator> transformators) {
 		if (deleteExistingResult)
 			deleteExistingFile(new File(resultPath));
-		try {
-			transform(l.buffer(originPath, originCharset), c.buffer(resultPath, resultCharset, true), transformators);
+		try(
+				BufferedWriter bw = (resultCharset == null)
+						? c.buffer(resultPath, true)
+						: c.buffer(resultPath, resultCharset, true);
+				BufferedReader br = (originCharset == null)
+						? l.buffer(originPath)
+						: l.buffer(originPath, originCharset);
+			) {
+			transform(br, bw, transformators);
 			if (deleteOrigin)
 			deleteExistingFile(new File(originPath));
 		} catch (IOException e) {
@@ -32,23 +39,6 @@ public class ContentTransformator {
 		}
 	}
 	
-	public ContentTransformator(
-			String originPath,
-			String resultPath,
-			boolean deleteExistingResult,
-			boolean deleteOrigin,
-			List<LineTransformator> transformators) {
-		if (deleteExistingResult)
-			deleteExistingFile(new File(resultPath));
-		try {
-			transform(l.buffer(originPath), c.buffer(resultPath, true), transformators);
-			if (deleteOrigin)
-			deleteExistingFile(new File(originPath));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public ContentTransformator() {}
 
 	public void transform(BufferedReader br, BufferedWriter bw, List<LineTransformator> transformators) throws IOException {

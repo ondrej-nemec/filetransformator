@@ -64,6 +64,7 @@ public ContentTransformator(
 			List<LineTransformator> transformators);
 ```
 The parameters are very similar to options for bash command. [See options](#options). `LineTransformator` interface is explained below. [See LineTransformator](#linetransformator-interface).
+
 The second way is using `public void transform(BufferedReader br, BufferedWriter bw, List<LineTransformator> transformators) throws IOException` method. For this way has `LineTransformator` class non-parametrized constructor, too. **Remember: everythings is doing per line - read line, applying every LineTransformator, save line - so add append option to BufferWriter.**
 
 ### LineTransformator interface
@@ -76,4 +77,4 @@ Returned value of this method is used as input to next `LineTransformator` or is
 For *.srt subtitle file transformation. Require this format of time: 'hh:mm:ss,sss --> hh:mm:ss,sss'. If subtitles are soon that voice, shift is positive, if subtitles are late that voice, shift is negative. Shift is given in constructor.
 
 #### ReplaceStringTransformator
-Use `java.util.Map`. The 'key' is what you wont to replace, 'value' is new value. Map is given in constructor. Or you can specified that 'keys' are regexs.
+Use `java.util.Map`. The 'key' is what you want to replace, 'value' is new value. Map is given in constructor. Or you can specified that 'keys' are regexs.

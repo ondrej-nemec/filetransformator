@@ -9,32 +9,55 @@ import transformation.ReplaceStringTransformator;
 import transformation.SubtitleTimeTransformator;
 
 public class RunTransformations {
-
-	public RunTransformations(String... args) {
-		/*sygnature 
-		 * origin resource
-		 *  -co originCharset
-		 *  -cr resultCharset
-		 *  -do -dr
-		 * -t(u)  time H/M/S/N
-		 * -m key value // more time
-		 */
-		String originPath = null;
-		String originCharset = null;
-		String resultPath = null;
-		String resultCharset = null;
-		boolean deleteExistingResult = false;
-		boolean deleteOrigin = false;
-		char unitOfTime = 'N';
-		long time = 0;
-		Map<String, String> map = new HashMap<>();
+	
+	public static final int OUT = 0;
+	public static final int ERR = 1;
+	public static final int EXC = 2;
+	
+	
+	private String originPath;// = null;
+	private String originCharset;// = null;
+	private String resultPath;// = null;
+	private String resultCharset;// = null;
+	private boolean deleteExistingResult;// = false;
+	private boolean deleteOrigin;// = false;
+	private char unitOfTime;// = ' ';
+	private long time;// = 0;	
+	private Map<String, String> map;
 		
-		System.out.println("Prepate transformator");
+	/**
+	 * transform.jar <originFile> <resultFile>
+	 * [-co <originCharset>] [-cr <resultCharset>]
+	 * [-do] [-dr]
+	 * [-t <time>]/[-tu <time> <H/M/S/N>]
+	 * [-m <replaceWhat> <repaceWith>]
+	 * 
+	 * windows:
+	 * start javaw -jar ./file-transformator-<version>.jar
+	 * 
+	 * linux:
+	 * java -jar ./file-transformator-<version>.jar
+	 * @param args
+	 */	
+	public void transform(String... args) {
+		print("Prepate transformator", OUT);
+		
 		if (args.length < 2) {
-			System.err.println("You have a few arguments, paths to origin and result is required");
+			print("You have a few arguments, paths to origin and result is required", ERR);
 			System.exit(0);
 		}
-			
+		
+		fillVariables(args);
+		
+		print("Transforming...", OUT);
+				
+		runTrans();
+		
+		print("Finished", OUT);
+	}
+	
+	protected void fillVariables(String... args) {
+		map = new HashMap<>();
 		for (int i = 0; i < args.length; i++) {
 			//paths
 			if (i == 0)
@@ -67,13 +90,13 @@ public class RunTransformations {
 				i+=2;
 			} else {
 				//TODO print help
-				System.err.println("Unknown " + args[i]);
+				print("Unknown " + args[i], ERR);
 				System.exit(0);
 			}
 		}
-		
-		System.out.println("Transform...");
-				
+	}
+
+	protected void runTrans() {
 		new ContentTransformator(
 				originPath,
 				originCharset,
@@ -86,11 +109,9 @@ public class RunTransformations {
 					new ReplaceStringTransformator(map)
 				)
 			);
-		
-		System.out.println("Finished");
 	}
-
-	private long convertTimeToMiliseconds(long time, char key) {
+	
+	protected long convertTimeToMiliseconds(long time, char key) {
 		switch (key) {
 		case 'H':
 			return time * 1000 *60 *60;
@@ -104,8 +125,64 @@ public class RunTransformations {
 		}
 	}	
 	
-	public static void main(String[] args) {
-		new RunTransformations(args);
+	protected String getOriginPath() {
+		return originPath;
 	}
 
+	protected String getOriginCharset() {
+		return originCharset;
+	}
+
+	protected String getResultPath() {
+		return resultPath;
+	}
+
+	protected String getResultCharset() {
+		return resultCharset;
+	}
+
+	protected boolean isDeleteExistingResult() {
+		return deleteExistingResult;
+	}
+
+	protected boolean isDeleteOrigin() {
+		return deleteOrigin;
+	}
+
+	protected char getUnitOfTime() {
+		return unitOfTime;
+	}
+
+	protected long getTime() {
+		return time;
+	}
+
+	protected Map<String, String> getMap() {
+		return map;
+	}
+
+	
+	public static void main(String[] args) {
+		try{
+			 new RunTransformations().transform(args);
+		}catch(Throwable e) {
+			e.printStackTrace();
+			print(e.getMessage(), EXC);
+		}
+	}
+	
+	
+	public static synchronized void print(String message, int status) {
+		switch (status) {
+		case OUT:
+			System.out.println(message);
+			break;
+		case ERR:
+		case EXC:
+			System.err.println(message);
+			break;
+		default:
+			break;
+		}
+	}
 }

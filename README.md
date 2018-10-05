@@ -1,5 +1,6 @@
 # File Content Transformator
-**Newest version:** 0.1.1
+
+[![](https://jitpack.io/v/ondrej-nemec/filetransformator.svg)](https://jitpack.io/#ondrej-nemec/filetransformator)
 
 * [Description](#description)
 * [Get library](#how-to-install)

@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>io.github.ondrej-nemec.filetransformator</groupId>
+  <groupId>com.github.ondrej-nemec</groupId>
   <artifactId>filetransformator</artifactId>
-  <version>0.1.1</version>
+  <version>0.2</version>
   <build>
     <plugins>
       <plugin>
@@ -15,16 +15,28 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+	<repository>
+	   <id>jitpack.io</id>
+	   <url>https://jitpack.io</url>
+	   </repository>
+  </repositories>
   <dependencies>
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.12</version>
+	    <scope>test</scope>
+	</dependency>
+	<dependency>
+	    <groupId>com.github.ondrej-nemec</groupId>
+	    <artifactId>lordoffiles</artifactId>
+	    <version>4b2d580</version>
+	</dependency>
   	<dependency>
     	<groupId>org.mockito</groupId>
    		<artifactId>mockito-core</artifactId>
     	<version>2.19.1</version>
-	</dependency>
-  	<dependency>
-		  <groupId>io.github.ondrej-nemec.lordoffiles</groupId>
-		  <artifactId>lof</artifactId>
-		  <version>1.1.1</version>
 	</dependency>
 	<dependency>
 		  <groupId>pl.pragmatists</groupId>

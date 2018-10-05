@@ -18,10 +18,20 @@ Package which allow you very quickly change content of file. This package read l
 
 ### Maven:
 
+After `build` tag:
+```xml
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+```
+And to `dependencies`:
 ```xml
 <dependency>
-  <groupId>io.github.ondrej-nemec.file-transformator</groupId>
-  <artifactId>file-transformator</artifactId>
+  <groupId>com.github.ondrej-nemec</groupId>
+  <artifactId>filetransformator</artifactId>
   <version>0.1.1</version>
 </dependency>
 ```

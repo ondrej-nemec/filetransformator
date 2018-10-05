@@ -31,7 +31,7 @@
 	<dependency>
 	    <groupId>com.github.ondrej-nemec</groupId>
 	    <artifactId>lordoffiles</artifactId>
-	    <version>4b2d580</version>
+	    <version>v1.2.1-alpha</version>
 	</dependency>
   	<dependency>
     	<groupId>org.mockito</groupId>

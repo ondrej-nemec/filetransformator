@@ -1,6 +1,7 @@
 # File Content Transformator
 
 [![](https://jitpack.io/v/ondrej-nemec/filetransformator.svg)](https://jitpack.io/#ondrej-nemec/filetransformator)
+[![MIT License](http://img.shields.io/badge/license-MIT-green.svg) ](https://github.com/ondrej-nemec/filetransformator/LICENSE)
 
 * [Description](#description)
 * [Get library](#how-to-install)
@@ -32,7 +33,7 @@ And to `dependencies`:
 <dependency>
   <groupId>com.github.ondrej-nemec</groupId>
   <artifactId>filetransformator</artifactId>
-  <version>0.1.1</version>
+  <version>v0.2-alpha</version>
 </dependency>
 ```
 

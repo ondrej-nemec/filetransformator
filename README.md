@@ -1,7 +1,7 @@
 # File Content Transformator
 
 [![](https://jitpack.io/v/ondrej-nemec/filetransformator.svg)](https://jitpack.io/#ondrej-nemec/filetransformator)
-[![MIT License](http://img.shields.io/badge/license-MIT-green.svg) ](https://github.com/ondrej-nemec/filetransformator/LICENSE)
+[![MIT License](http://img.shields.io/badge/license-MIT-green.svg) ](https://github.com/ondrej-nemec/filetransformator/blob/master/LICENSE)
 
 * [Description](#description)
 * [Get library](#how-to-install)
@@ -15,7 +15,7 @@ Package which allow you very quickly change content of file. This package read l
 ## How to install
 ### Download:
 
-<a href="https://ondrej-nemec.github.io/download/file-transformator-0.1.1.jar" target=_blank>Download jar</a>
+<a href="https://ondrej-nemec.github.io/download/file-transformator-0.2.jar" target=_blank>Download jar</a>
 
 ### Maven:
 
